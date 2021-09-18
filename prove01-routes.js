@@ -3,7 +3,7 @@ const fs = require('fs');
 const requestHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-
+const usersArray = ['Batman', 'Aquaman'];
 
   if (url === '/') {
     res.write('<html>');
@@ -18,11 +18,15 @@ const requestHandler = (req, res) => {
   if (url === '/create-users' && method === 'POST') { 
     const body= [];
     req.on('data', (chunk) => {
+      console.log('chunk is ' + chunk)
       body.push(chunk);
     });
+    
     req.on('end', () => {
       const parsedBody = Buffer.concat(body).toString();
       const userName = parsedBody.split('=')[1];
+      usersArray.push(userName);
+      
       fs.writeFile('message.txt', userName, err => {
         res.statusCode = 302;
         res.setHeader('Location', '/users');
@@ -30,17 +34,24 @@ const requestHandler = (req, res) => {
         return res.end();
       });
     });
+    req.on('data', (chunk) => {
+      usersArray.push(chunk);
+      console.log('usersArray is ' + usersArray);
+    });
+          
   }
   if (url === '/users') {
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
     res.write('<head><title>Users</title><head>');
-    res.write('<body><ul>');  //<li>User 1</li>');
-    for (const activity of activities) {
-      res.write(`<li>${activity}</li>`);
-    }
+    res.write('<body><ul>');  
+    res.write('<li>User 1</li>');
+    //for (const activity of activities) {
+    //  res.write(`<li>${activity}</li>`);
+    //}
 
     res.write('<li>User 2</li></ul></body>');
+    res.write('<a href="/">Home</a></br>');
     res.write('</html');
     res.end();
   }
