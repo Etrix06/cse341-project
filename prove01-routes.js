@@ -3,7 +3,7 @@ const fs = require('fs');
 const requestHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-  
+
 
   if (url === '/') {
     res.write('<html>');
@@ -35,7 +35,11 @@ const requestHandler = (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
     res.write('<head><title>Users</title><head>');
-    res.write('<body><ul><li>User 1</li>');
+    res.write('<body><ul>');  //<li>User 1</li>');
+    for (const activity of activities) {
+      res.write(`<li>${activity}</li>`);
+    }
+
     res.write('<li>User 2</li></ul></body>');
     res.write('</html');
     res.end();
