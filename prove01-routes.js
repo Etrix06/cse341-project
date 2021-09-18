@@ -1,9 +1,10 @@
 const fs = require('fs');
 
+const usersArray = [];
 const requestHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-const usersArray = ['Batman', 'Aquaman'];
+
 
   if (url === '/') {
     res.write('<html>');
@@ -18,25 +19,25 @@ const usersArray = ['Batman', 'Aquaman'];
   if (url === '/create-users' && method === 'POST') { 
     const body= [];
     req.on('data', (chunk) => {
-      console.log('chunk is ' + chunk)
       body.push(chunk);
+      console.log('Body is '+ body);
+      const parsedBody = Buffer.concat(body).toString();
+      const userName = parsedBody.split('=')[1];
+      console.log('inside req.on data, userName is ' + userName);
     });
     
     req.on('end', () => {
       const parsedBody = Buffer.concat(body).toString();
       const userName = parsedBody.split('=')[1];
-      usersArray.push(userName);
-      
+
       fs.writeFile('message.txt', userName, err => {
         res.statusCode = 302;
         res.setHeader('Location', '/users');
+        usersArray.push(userName);
         console.log('Username is ' + userName);
+        console.log('in req.on end, usersArray is ' + usersArray);
         return res.end();
       });
-    });
-    req.on('data', (chunk) => {
-      usersArray.push(chunk);
-      console.log('usersArray is ' + usersArray);
     });
           
   }
@@ -44,14 +45,13 @@ const usersArray = ['Batman', 'Aquaman'];
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
     res.write('<head><title>Users</title><head>');
-    res.write('<body><ul>');  
-    res.write('<li>User 1</li>');
-    //for (const activity of activities) {
-    //  res.write(`<li>${activity}</li>`);
-    //}
-
-    res.write('<li>User 2</li></ul></body>');
-    res.write('<a href="/">Home</a></br>');
+    res.write('<body><h1>User List:</h1>');  
+    res.write('<ul>');  
+    for (const userList of usersArray) {
+      res.write(`<li>${userList}</li>`);
+    }
+    res.write('</ul>');  
+    res.write('<br><a href="/">Back to Home</a></br>');
     res.write('</html');
     res.end();
   }
