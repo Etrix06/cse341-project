@@ -20,24 +20,25 @@ const requestHandler = (req, res) => {
     const body= [];
     req.on('data', (chunk) => {
       body.push(chunk);
-      console.log('Body is '+ body);
+      //console.log('Body is '+ body);
       const parsedBody = Buffer.concat(body).toString();
       const userName = parsedBody.split('=')[1];
-      console.log('inside req.on data, userName is ' + userName);
+      //console.log('inside req.on data, userName is ' + userName);
     });
     
     req.on('end', () => {
       const parsedBody = Buffer.concat(body).toString();
       const userName = parsedBody.split('=')[1];
 
-      fs.writeFile('message.txt', userName, err => {
+      //fs.writeFile('message.txt', userName, err => {
         res.statusCode = 302;
         res.setHeader('Location', '/users');
         usersArray.push(userName);
-        console.log('Username is ' + userName);
-        console.log('in req.on end, usersArray is ' + usersArray);
-        return res.end();
-      });
+        console.log('Username entered is ' + userName);
+        res.end();
+        //console.log('in req.on end, usersArray is ' + usersArray);
+        //return res.end();
+      //});
     });
           
   }
