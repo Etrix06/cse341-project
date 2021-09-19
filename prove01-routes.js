@@ -20,10 +20,8 @@ const requestHandler = (req, res) => {
     const body= [];
     req.on('data', (chunk) => {
       body.push(chunk);
-      //console.log('Body is '+ body);
       const parsedBody = Buffer.concat(body).toString();
       const userName = parsedBody.split('=')[1];
-      //console.log('inside req.on data, userName is ' + userName);
     });
     
     req.on('end', () => {
