@@ -16,7 +16,24 @@
       </div>
     </div>
     <div class="container">
+      <div>
+        <form action="/ta02/addUser" method="POST">
+          <label for="newUser">New Username</label><br>
+          <input type="text" name="newUser">
+          <button type="submit">Add User</button>
+        </form>
+       
 
+
+        <div>
+          <h2>Users:</h2>
+          <% for(user of users) { %>
+            <p>
+              <%= user %>
+            </p>
+          <% } %>
+        </div>
+      </div>
     </div>
 
 
