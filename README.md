@@ -1,5 +1,6 @@
 # Notes
-This repository is in my CSE 341 WEB BACKEND II folder.  It is in my github cse341-project repository and in my alcala-project341 on Heroku
+This repository is in my CSE 341 WEB BACKEND II folder.  It is in my github cse341-project repository and in my alcala-project341 on Heroku.
+The mongoDb folder is called alcalashop.
 # Erik's NodeJS_Template
 
 This application was originally a barebones template of [node-js-getting-started](https://github.com/heroku/node-js-getting-started) provided by Heroku. It has been revised to accomodate the needs of students taking the CSE341 course at BYU-Idaho.
