@@ -1,5 +1,5 @@
 # Notes
-This repository is in my CSE 341 WEB BACKEND II folder.  It is in my githum cse341-project repository and in my alcala-prove02 app on heroku.  I want to rename it alcala-project341 but im afraid i'll break something.
+This repository is in my CSE 341 WEB BACKEND II folder.  It is in my github cse341-project repository and in my alcala-project341 on Heroku
 # Erik's NodeJS_Template
 
 This application was originally a barebones template of [node-js-getting-started](https://github.com/heroku/node-js-getting-started) provided by Heroku. It has been revised to accomodate the needs of students taking the CSE341 course at BYU-Idaho.
