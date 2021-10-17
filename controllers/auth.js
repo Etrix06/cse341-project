@@ -88,13 +88,13 @@ exports.postSignup = (req, res, next) => {
     })
         .then(result => {
           res.redirect('/login');
+          console.log("hopefully email is getting sent next.");
           return transporter.sendMail({
             to: email,
             from: 'alc18005@byui.edu',
             subject: 'Signup succeeded!',
-            html: '<h1>You successfully signed up!</h1>'            
+            html: '<h1>You successfully signed up to Alcala Shop!</h1>'            
           }); 
-          console.log("This is where the email gets sent.");
         })
         .catch(err => {
           console.log(err);
