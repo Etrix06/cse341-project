@@ -94,6 +94,7 @@ exports.postSignup = (req, res, next) => {
             subject: 'Signup succeeded!',
             html: '<h1>You successfully signed up!</h1>'            
           }); 
+          console.log("This is where the email gets sent.");
         })
         .catch(err => {
           console.log(err);

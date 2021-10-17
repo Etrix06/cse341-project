@@ -34,7 +34,7 @@ exports.getIndex = (req, res, next) => {
     .then(products => {
       res.render('shop/index', {
         prods: products,
-        pageTitle: 'Heroku Shop',
+        pageTitle: 'Alcala Shop',
         path: '/'
       });
     })
