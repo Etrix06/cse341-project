@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
+const User = require('../models/user'); // attempt to add user name to nav bar
 
 exports.getProducts = (req, res, next) => {
   Product.find()
