@@ -1,9 +1,9 @@
 const crypto = require('crypto');
 require('dotenv').config();
-
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+const { validationResult } = require('express-validator/check');
 
 const User = require('../models/user');
 
@@ -73,6 +73,15 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    console.log(errors.array());
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()
+    });
+  }
   User.findOne({ email: email })
   .then(userDoc => {
     if (userDoc) {
@@ -91,7 +100,6 @@ exports.postSignup = (req, res, next) => {
     })
         .then(result => {
           res.redirect('/login');
-          console.log("hopefully email is getting sent next.");
           return transporter.sendMail({
             to: email,
             from: 'alc18005@byui.edu',
@@ -154,8 +162,10 @@ exports.postReset = (req, res, next) => {
         subject: 'Password reset.',
         html: `
           <p>You requested a password reset from Alcala Shop</p>
-          <p>Click this <a href="https://alcala-project341.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
+          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
         `         
+        //   needs to be infront of the /reset above
+        //https://alcala-project341.herokuapp.com
       });
     })
     .catch(err => {
