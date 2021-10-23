@@ -205,10 +205,10 @@ exports.postReset = (req, res, next) => {
         subject: 'Password reset.',
         html: `
           <p>You requested a password reset from Alcala Shop</p>
-          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
+          <p>Click this <a href="https://alcala-project341.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
         `         
-        //   needs to be infront of the /reset above
-        //https://alcala-project341.herokuapp.com
+        //   needs to be infront of the /reset above in order to work with academind
+        //http://localhost:3000
       });
     })
     .catch(err => {
