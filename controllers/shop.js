@@ -36,6 +36,23 @@ exports.getProduct = (req, res, next) => {
     });
   };
 
+  // getShop added later
+  exports.getShop = (req, res, next) => {
+    Product.find()
+      .then(products => {
+        res.render('shop/shop', {
+          prods: products,
+          pageTitle: 'Alcala Shop',
+          path: '/shop'
+        });
+      })
+      .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });
+  };
+
 exports.getIndex = (req, res, next) => {
   Product.find()
     .then(products => {
